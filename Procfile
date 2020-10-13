@@ -1,1 +1,1 @@
-web: gunicorn bootcamp.wsgi BalhamDB.wsgi
+web: gunicorn BalhamDB.wsgi
