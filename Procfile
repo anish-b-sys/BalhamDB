@@ -1,1 +1,1 @@
-web: gunicorn BalhamDB.wsgi
+web: gunicorn BalhamDB.wsgi --log-file -
