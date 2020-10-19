@@ -1,6 +1,8 @@
 from ibas.models import Student, Lecturer, Course, Assessment, Result, ResearchTopic, ResearchProject, Issue, \
     Programme, Assignment, Enrolment
 from rest_framework import viewsets, permissions
+from rest_framework.response import Response
+from .permissions import IsCourseAdministrator, IsEnrolmentClerk, IsHumanResourcesClerk, IsProgrammeAdministrator, IsResearchAdministrator, IsStudentSupportClerk
 
 from .serializers import StudentSerializer, LecturerSerializer, CourseSerializer, \
     AssessmentSerializer, ResultSerializer, ResearchProjectSerializer, ResearchTopicSerializer, IssueSerializer, \
@@ -21,6 +23,22 @@ class LecturerViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = LecturerSerializer
+
+    def get_permissions(self):
+        permission = super().get_permissions()
+        print(permission)
+        print(self.action)
+        if self.action == 'create':
+            permission = [IsHumanResourcesClerk()]
+        elif self.action == 'update':
+            permission = [IsHumanResourcesClerk()]
+        elif self.action == 'destroy':
+            permission = [IsHumanResourcesClerk()]
+        elif self.action == 'list':
+            permission = [IsHumanResourcesClerk()]
+        elif self.action == 'retrieve':
+            permission = [IsHumanResourcesClerk()]
+        return permission
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -93,3 +111,15 @@ class EnrolmentViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = EnrolmentSerializer
+
+    def get_permissions(self):
+        permission = super().get_permissions()
+        print(permission)
+        print(self.action)
+        if self.action == 'create':
+            permission = [IsManager()]
+        elif self.action == 'update':
+            permission = [IsDealerOrManager()]
+        elif self.action == 'destory':
+            permission = [IsManager()]
+        return permission
