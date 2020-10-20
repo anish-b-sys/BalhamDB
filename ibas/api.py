@@ -116,6 +116,10 @@ class ResultViewSet(viewsets.ModelViewSet):
         print(self.action)
         if self.action == 'create':
             permission = [IsCourseAdministrator()]
+        elif self.action == 'list':
+            permission = [IsCourseAdministrator()]
+        elif self.action == 'retrieve':
+            permission = [IsCourseAdministrator()]
         return permission
 
 
