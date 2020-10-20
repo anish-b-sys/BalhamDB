@@ -1,7 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
 from django.db import models
 
-
 class Student(models.Model):
     StudentID = models.AutoField(primary_key=True)
     FirstName = models.CharField(max_length=30, null=False, blank=False)
@@ -74,6 +73,7 @@ class Course(models.Model):
     )
     Status = models.CharField(max_length=9, choices=statusList, null=False, blank=False)
     Programme = models.ForeignKey(Programme, on_delete=models.CASCADE, to_field='ProgrammeID', null=False, blank=False)
+
 
 class Assignment(models.Model):
     AssignmentID = models.AutoField(primary_key=True)

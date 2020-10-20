@@ -1,1 +1,0 @@
-web: gunicorn BalhamDB.wsgi
