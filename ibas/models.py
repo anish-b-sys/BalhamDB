@@ -10,7 +10,7 @@ class Student(models.Model):
     Suburb = models.CharField(max_length=20, null=False, blank=False)
     City = models.CharField(max_length=25, null=False, blank=False)
     EmailAddress = models.EmailField(max_length=30, null=True, blank=True)
-    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(9)], null=False, blank=False)
+    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(9)], null=False, blank=True)
     statusList = (
         ('Part-Time', 'Part-Time'),
         ('Full-Time', 'Full-Time'),
@@ -39,6 +39,29 @@ class Lecturer(models.Model):
     )
     Type = models.CharField(max_length=8, choices=TypeList, null=False, blank=False)
 
+class ResearchTopic(models.Model):
+    ResearchTopicID = models.AutoField(primary_key=True)
+    Description = models.TextField(max_length=40, null=False, blank=False)
+    impactList = (
+        ('High', 'High'),
+        ('Medium', 'Medium'),
+        ('Low', 'Low'),
+    )
+    Impact = models.CharField(max_length=6, choices=impactList, null=False, blank=False)
+
+class ResearchProject(models.Model):
+    ResearchProjectID = models.AutoField(primary_key=True)
+    Lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, to_field='LecturerID', null=False, blank=False)
+    ResearchTopic = models.ForeignKey(ResearchTopic, on_delete=models.CASCADE, to_field='ResearchTopicID', null=False,
+                                      blank=False)
+    Output = models.TextField(max_length=30, null=False, blank=False)
+    Description = models.TextField(max_length=40, null=False, blank=False)
+    StartDate = models.DateField(null=False, blank=False)
+
+class Programme(models.Model):
+    ProgrammeID = models.AutoField(primary_key=True)
+    ProgrammeName = models.TextField(max_length=25, null=False, blank=False)
+    Level = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)], null=False, blank=False)
 
 class Course(models.Model):
     CourseID = models.AutoField(primary_key=True)
@@ -52,7 +75,15 @@ class Course(models.Model):
     Status = models.CharField(max_length=9, choices=statusList, null=False, blank=False)
     Programme = models.ForeignKey(Programme, on_delete=models.CASCADE, to_field='ProgrammeID', null=False, blank=False)
 
-
+class Assignment(models.Model):
+    AssignmentID = models.AutoField(primary_key=True)
+    Course = models.ForeignKey(Course, on_delete=models.CASCADE, to_field='CourseID', null=False, blank=False)
+    Lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, to_field='LecturerID', null=False, blank=False)
+    roleList = (
+        ('Primary', 'Primary'),
+        ('Secondary', 'Secondary'),
+    )
+    Role = models.CharField(max_length=9, choices=roleList, null=False, blank=False)
 
 class Assessment(models.Model):
     AssessmentID = models.AutoField(primary_key=True)
@@ -69,8 +100,7 @@ class Assessment(models.Model):
     Type = models.CharField(max_length=14, choices=typeList, null=False, blank=False)
     Weighting = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(10)], null=False, blank=False)
     MaximumMark = models.IntegerField(validators=[MaxValueValidator(200), MinValueValidator(50)], null=False,
-                                      blank=False)
-
+              blank=False)
 
 class Enrolment(models.Model):
     EnrolmentID = models.AutoField(primary_key=True)
@@ -84,7 +114,12 @@ class Enrolment(models.Model):
         ('Complete', 'Complete'),
     )
     Status = models.CharField(max_length=8, choices=statusList, null=False, blank=False)
-
+class Issue(models.Model):
+    IssueID = models.AutoField(primary_key=True)
+    IssueDescription = models.TextField(max_length=40, null=False, blank=False)
+    IssueDate = models.DateField(null=False, blank=False)
+    ActionTaken = models.TextField(max_length=20, null=False, blank=False)
+    Enrolment = models.ForeignKey(Enrolment, on_delete=models.CASCADE, to_field='EnrolmentID', null=False, blank=False)
 
 class Result(models.Model):
     ResultID = models.AutoField(primary_key=True)
@@ -95,47 +130,5 @@ class Result(models.Model):
     Mark = models.IntegerField(validators=[MaxValueValidator(200), MinValueValidator(0)], null=False, blank=False)
 
 
-class ResearchTopic(models.Model):
-    ResearchTopicID = models.AutoField(primary_key=True)
-    Description = models.TextField(max_length=40, null=False, blank=False)
-    impactList = (
-        ('High', 'High'),
-        ('Medium', 'Medium'),
-        ('Low', 'Low'),
-    )
-    Impact = models.CharField(max_length=6, choices=impactList, null=False, blank=False)
 
 
-class ResearchProject(models.Model):
-    ResearchProjectID = models.AutoField(primary_key=True)
-    Lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, to_field='LecturerID', null=False, blank=False)
-    ResearchTopic = models.ForeignKey(ResearchTopic, on_delete=models.CASCADE, to_field='ResearchTopicID', null=False,
-                                      blank=False)
-    Output = models.TextField(max_length=30, null=False, blank=False)
-    Description = models.TextField(max_length=40, null=False, blank=False)
-    StartDate = models.DateField(null=False, blank=False)
-
-
-class Issue(models.Model):
-    IssueID = models.AutoField(primary_key=True)
-    IssueDescription = models.TextField(max_length=40, null=False, blank=False)
-    IssueDate = models.DateField(null=False, blank=False)
-    ActionTaken = models.TextField(max_length=20, null=False, blank=False)
-    Enrolment = models.ForeignKey(Enrolment, on_delete=models.CASCADE, to_field='EnrolmentID', null=False, blank=False)
-
-
-class Programme(models.Model):
-    ProgrammeID = models.AutoField(primary_key=True)
-    ProgrammeName = models.TextField(max_length=25, null=False, blank=False)
-    Level = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)], null=False, blank=False)
-
-
-class Assignment(models.Model):
-    AssignmentID = models.AutoField(primary_key=True)
-    Course = models.ForeignKey(Course, on_delete=models.CASCADE, to_field='CourseID', null=False, blank=False)
-    Lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, to_field='LecturerID', null=False, blank=False)
-    roleList = (
-        ('Primary', 'Primary'),
-        ('Secondary', 'Secondary'),
-    )
-    Role = models.CharField(max_length=9, choices=roleList, null=False, blank=False)
