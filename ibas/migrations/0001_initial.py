@@ -32,6 +32,8 @@ class Migration(migrations.Migration):
                 ('Credits', models.IntegerField(validators=[django.core.validators.MaxValueValidator(120), django.core.validators.MinValueValidator(5)])),
                 ('Fee', models.FloatField(validators=[django.core.validators.MaxValueValidator(8000), django.core.validators.MinValueValidator(200)])),
                 ('Status', models.CharField(choices=[('Current', 'Current'), ('Suspended', 'Suspended')], max_length=9)),
+                ('Programme', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ibas.Programme')),
+
             ],
         ),
         migrations.CreateModel(
