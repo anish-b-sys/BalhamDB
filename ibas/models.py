@@ -1,4 +1,4 @@
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
 from django.db import models
 
 
@@ -10,7 +10,7 @@ class Student(models.Model):
     Suburb = models.CharField(max_length=20, null=False, blank=False)
     City = models.CharField(max_length=25, null=False, blank=False)
     EmailAddress = models.EmailField(max_length=30, null=True, blank=True)
-    PhoneNumber = models.CharField(max_length=16, null=False, blank=True)
+    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(9)], null=False, blank=False)
     statusList = (
         ('Part-Time', 'Part-Time'),
         ('Full-Time', 'Full-Time'),
@@ -26,7 +26,7 @@ class Lecturer(models.Model):
     Suburb = models.CharField(max_length=20, null=False, blank=False)
     City = models.CharField(max_length=25, null=False, blank=False)
     EmailAddress = models.EmailField(max_length=30, null=True, blank=True)
-    PhoneNumber = models.CharField(max_length=16, null=False, blank=True)
+    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(9)], null=False, blank=False)
     rankingList = (
         ('A', 'A'),
         ('B', 'B'),
@@ -50,6 +50,8 @@ class Course(models.Model):
         ('Suspended', 'Suspended'),
     )
     Status = models.CharField(max_length=9, choices=statusList, null=False, blank=False)
+    Programme = models.ForeignKey(Programme, on_delete=models.CASCADE, to_field='ProgrammeID', null=False, blank=False)
+
 
 
 class Assessment(models.Model):
