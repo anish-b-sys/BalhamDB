@@ -106,7 +106,7 @@ class Enrolment(models.Model):
     EnrolmentID = models.AutoField(primary_key=True)
     Student = models.ForeignKey(Student, on_delete=models.CASCADE, to_field='StudentID', null=False, blank=False)
     Course = models.ForeignKey(Course, on_delete=models.CASCADE, to_field='CourseID', null=False, blank=False)
-    Level = models.IntegerField(validators=[MaxValueValidator(2050), MinValueValidator(2018)], null=False, blank=False)
+    Year = models.IntegerField(validators=[MaxValueValidator(2050), MinValueValidator(2018)], null=False, blank=False)
     Semester = models.IntegerField(validators=[MaxValueValidator(3), MinValueValidator(1)], null=False, blank=False)
     statusList = (
         ('Pending', 'Pending'),
