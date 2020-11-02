@@ -16,21 +16,21 @@ class StudentViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = StudentSerializer
 
-    def get_permissions(self):
-        permission = super().get_permissions()
-        print(permission)
-        print(self.action)
-        if self.action == 'create':
-            permission = [IsEnrolmentClerk()]
-        elif self.action == 'update':
-            permission = [IsEnrolmentClerk()]
-        elif self.action == 'destroy':
-            permission = [IsEnrolmentClerk()]
-        elif self.action == 'list':
-            permission = [IsEnrolmentClerk()]
-        elif self.action == 'retrieve':
-            permission = [IsEnrolmentClerk()]
-        return permission
+    # def get_permissions(self):
+    #     permission = super().get_permissions()
+    #     print(permission)
+    #     print(self.action)
+    #     if self.action == 'create':
+    #         permission = [IsEnrolmentClerk()]
+    #     elif self.action == 'update':
+    #         permission = [IsEnrolmentClerk()]
+    #     elif self.action == 'destroy':
+    #         permission = [IsEnrolmentClerk()]
+    #     elif self.action == 'list':
+    #         permission = [IsEnrolmentClerk()]
+    #     elif self.action == 'retrieve':
+    #         permission = [IsEnrolmentClerk()]
+    #     return permission
 
 
 class LecturerViewSet(viewsets.ModelViewSet):
