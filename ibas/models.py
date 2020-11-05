@@ -111,9 +111,9 @@ class Enrolment(models.Model):
     Status = models.CharField(max_length=8, choices=statusList, null=False, blank=False)
 class Issue(models.Model):
     IssueID = models.AutoField(primary_key=True)
-    IssueDescription = models.TextField(max_length=40, null=False, blank=False)
+    IssueDescription = models.TextField(max_length=100, null=False, blank=False)
     IssueDate = models.DateField(null=False, blank=False)
-    ActionTaken = models.TextField(max_length=20, null=False, blank=False)
+    ActionTaken = models.TextField(max_length=100, null=False, blank=False)
     Enrolment = models.ForeignKey(Enrolment, on_delete=models.CASCADE, to_field='EnrolmentID', null=False, blank=False)
 
 class Result(models.Model):
