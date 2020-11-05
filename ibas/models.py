@@ -41,12 +41,7 @@ class Lecturer(models.Model):
 class ResearchTopic(models.Model):
     ResearchTopicID = models.AutoField(primary_key=True)
     Description = models.TextField(max_length=40, null=False, blank=False)
-    impactList = (
-        ('High', 'High'),
-        ('Medium', 'Medium'),
-        ('Low', 'Low'),
-    )
-    Impact = models.CharField(max_length=6, choices=impactList, null=False, blank=False)
+    Impact = models.TextField(max_length=60, null=False, blank=False)
 
 class ResearchProject(models.Model):
     ResearchProjectID = models.AutoField(primary_key=True)
