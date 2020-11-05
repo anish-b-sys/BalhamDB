@@ -94,7 +94,7 @@ class Assessment(models.Model):
     )
     Type = models.CharField(max_length=14, choices=typeList, null=False, blank=False)
     Weighting = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(10)], null=False, blank=False)
-    MaximumMark = models.IntegerField(validators=[MaxValueValidator(200), MinValueValidator(50)], null=False,
+    MaximumMark = models.IntegerField(validators=[MaxValueValidator(200), MinValueValidator(10)], null=False,
               blank=False)
 
 class Enrolment(models.Model):
