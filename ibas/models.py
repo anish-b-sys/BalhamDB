@@ -59,7 +59,7 @@ class ResearchProject(models.Model):
 
 class Programme(models.Model):
     ProgrammeID = models.AutoField(primary_key=True)
-    ProgrammeName = models.TextField(max_length=25, null=False, blank=False)
+    ProgrammeName = models.TextField(max_length=40, null=False, blank=False)
     Level = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)], null=False, blank=False)
 
 class Course(models.Model):
