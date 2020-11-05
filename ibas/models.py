@@ -9,7 +9,7 @@ class Student(models.Model):
     Suburb = models.CharField(max_length=20, null=False, blank=False)
     City = models.CharField(max_length=25, null=False, blank=False)
     EmailAddress = models.EmailField(max_length=30, null=True, blank=True)
-    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(9)], null=False, blank=False)
+    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(7)], null=False, blank=False)
     statusList = (
         ('Part-Time', 'Part-Time'),
         ('Full-Time', 'Full-Time'),
@@ -25,7 +25,7 @@ class Lecturer(models.Model):
     Suburb = models.CharField(max_length=20, null=False, blank=False)
     City = models.CharField(max_length=25, null=False, blank=False)
     EmailAddress = models.EmailField(max_length=30, null=True, blank=True)
-    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(9)], null=False, blank=False)
+    PhoneNumber = models.CharField(max_length=16, validators=[MinLengthValidator(7)], null=False, blank=False)
     rankingList = (
         ('A', 'A'),
         ('B', 'B'),
