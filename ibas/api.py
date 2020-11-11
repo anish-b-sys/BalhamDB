@@ -10,7 +10,7 @@ from .serializers import StudentSerializer, LecturerSerializer, CourseSerializer
 
 
 class StudentViewSet(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
+    queryset = Student.objects.all().order_by("LastName")
     permission_classes = [
         permissions.AllowAny
     ]
@@ -34,7 +34,7 @@ class StudentViewSet(viewsets.ModelViewSet):
 
 
 class LecturerViewSet(viewsets.ModelViewSet):
-    queryset = Lecturer.objects.all()
+    queryset = Lecturer.objects.all().order_by("LastName")
     permission_classes = [
         permissions.AllowAny
     ]
@@ -58,7 +58,7 @@ class LecturerViewSet(viewsets.ModelViewSet):
 
 
 class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().order_by("CourseName")
     permission_classes = [
         permissions.AllowAny
     ]
@@ -81,7 +81,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     #     return permission
 
 class AssessmentViewSet(viewsets.ModelViewSet):
-    queryset = Assessment.objects.all()
+    queryset = Assessment.objects.all().order_by("AssessmentName")
     permission_classes = [
         permissions.AllowAny
     ]
@@ -149,7 +149,7 @@ class ResearchTopicViewSet(viewsets.ModelViewSet):
 
 
 class ResearchProjectViewSet(viewsets.ModelViewSet):
-    queryset = ResearchProject.objects.all()
+    queryset = ResearchProject.objects.all().order_by("Description")
     permission_classes = [
         permissions.AllowAny
     ]
@@ -170,7 +170,7 @@ class ResearchProjectViewSet(viewsets.ModelViewSet):
     #     return permission
 
 class IssueViewSet(viewsets.ModelViewSet):
-    queryset = Issue.objects.all()
+    queryset = Issue.objects.all().order_by("IssueDate")
     permission_classes = [
         permissions.AllowAny
     ]
